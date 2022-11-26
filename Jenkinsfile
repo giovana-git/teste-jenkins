@@ -29,9 +29,10 @@ pipeline {
         stage('Build das imagens Docker') {
             steps {
                 script {
-                    dockerappa = docker.build("giovanacosta/app-a", '-f ./app-a/Dockerfile ./app-a')                    // dockerappb = docker.build("giovanacosta/app-b", '-f ./Lab-Jenkins/app-b/Dockerfile ./Lab-Jenkins/app-a')
-                    // dockerappc = docker.build("giovanacosta/app-c", '-f ./Lab-Jenkins/app-c/Dockerfile ./Lab-Jenkins/app-a')
-                    // dockerappd = docker.build("giovanacosta/app-d", '-f ./Lab-Jenkins/app-d/Dockerfile ./Lab-Jenkins/app-a')
+                    dockerappa = docker.build("giovanacosta/app-a", '-f ./app-a/Dockerfile ./app-a')
+                    dockerappb = docker.build("giovanacosta/app-b", '-f ./app-b/Dockerfile ./app-b')
+                    dockerappc = docker.build("giovanacosta/app-c", '-f ./app-c/Dockerfile ./app-a')
+                    dockerappd = docker.build("giovanacosta/app-d", '-f ./app-d/Dockerfile ./app-a')
                 }
             }
         }
