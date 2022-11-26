@@ -14,11 +14,11 @@ pipeline {
             }
         }
 
-        // stage('Origem do GitHub') {
-        //     steps {
-        //         git url: 'https://github.com/giovana-git/Lab-Jenkins.git', branch: 'main'
-        //     }
-        // }
+        stage('Origem do GitHub') {
+            steps {
+                git url: 'https://github.com/giovana-git/teste-jenkins.git', branch: 'main'
+            }
+        }
 
         // stage('Build') {
         //     steps {
