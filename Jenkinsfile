@@ -20,12 +20,6 @@ pipeline {
         //     }
         // }
 
-        // stage('Build') {
-        //     steps {
-        //         sh "docker build -t giovanacosta/app-a:latest ."
-        //     }
-        // }
-
         stage('Build das imagens Docker') {
             steps {
                 script {
@@ -37,18 +31,23 @@ pipeline {
             }
         }
 
-        // stage('Push imagem para o DockerHub') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-        //                 dockerappa.push('latest')
-        //                 dockerappb.push('latest')
-        //                 dockerappc.push('latest')
-        //                 dockerappd.push('latest')
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Push imagem para o DockerHub') {
+
+            environment {
+               registryCredential = 'dockerhub'
+           }
+
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        dockerappa.push('latest')
+                        dockerappb.push('latest')
+                        dockerappc.push('latest')
+                        dockerappd.push('latest')
+                    }
+                }
+            }
+        }
         // stage('Deploying App to Kubernetes') {
         //     steps {
         //         script {
