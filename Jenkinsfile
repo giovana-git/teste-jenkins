@@ -21,12 +21,17 @@ pipeline {
         // }
 
         stage('Build das imagens Docker') {
+
+            environment {
+                tag_version = "${env.BUILD_ID}"
+            }
+
             steps {
                 script {
-                    dockerappa = docker.build("giovanacosta/app-a", '-f ./app-a/Dockerfile ./app-a')
-                    dockerappb = docker.build("giovanacosta/app-b", '-f ./app-b/Dockerfile ./app-b')
-                    dockerappc = docker.build("giovanacosta/app-c", '-f ./app-c/Dockerfile ./app-c')
-                    dockerappd = docker.build("giovanacosta/app-d", '-f ./app-d/Dockerfile ./app-d')
+                    dockerappa = docker.build("giovanacosta/app-a:${env.BUILD_ID}", '-f ./app-a/Dockerfile ./app-a')
+                    dockerappb = docker.build("giovanacosta/app-b:${env.BUILD_ID}", '-f ./app-b/Dockerfile ./app-b')
+                    dockerappc = docker.build("giovanacosta/app-c:${env.BUILD_ID}", '-f ./app-c/Dockerfile ./app-c')
+                    dockerappd = docker.build("giovanacosta/app-d:${env.BUILD_ID}", '-f ./app-d/Dockerfile ./app-d')
                 }
             }
         }
@@ -52,9 +57,7 @@ pipeline {
         stage('Deploy no cluster') {
             steps {
                 script {
-                    sh kubectl apply -f deployments
-                    sh kubectl apply -f services
-                    sh kubectl appl -f ingress                   
+                    sh kubectl apply -f deployments                 
                 }
             }
         }
