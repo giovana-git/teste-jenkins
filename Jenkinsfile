@@ -52,10 +52,9 @@ pipeline {
         stage('Deploying App to Kubernetes') {
             steps {
                 script {
-                    sh ""
-                    kubectl apply -f deployments
-                    kubectl apply -f services
-                    kubectl appl -f ingress                   
+                    sh kubectl apply -f deployments
+                    sh kubectl apply -f services
+                    sh kubectl appl -f ingress                   
                 }
             }
         }
