@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    // environment {
-    //     registry = "giovanacosta/app-a"
-    //     registryCredential = 'dockerhub'        
-    // }
-
     stages {
 
         stage('Inicial') {
@@ -28,10 +23,10 @@ pipeline {
 
             steps {
                 script {
-                    dockerappa = docker.build("giovanacosta/app-a:${env.BUILD_ID}", '-f ./app-a/Dockerfile ./app-a')
-                    dockerappb = docker.build("giovanacosta/app-b:${env.BUILD_ID}", '-f ./app-b/Dockerfile ./app-b')
-                    dockerappc = docker.build("giovanacosta/app-c:${env.BUILD_ID}", '-f ./app-c/Dockerfile ./app-c')
-                    dockerappd = docker.build("giovanacosta/app-d:${env.BUILD_ID}", '-f ./app-d/Dockerfile ./app-d')
+                    dockerappa = docker.build("giovanacosta/app-a:$tag_version", '-f ./app-a/Dockerfile ./app-a')
+                    dockerappb = docker.build("giovanacosta/app-b:$tag_version", '-f ./app-b/Dockerfile ./app-b')
+                    dockerappc = docker.build("giovanacosta/app-c:$tag_version", '-f ./app-c/Dockerfile ./app-c')
+                    dockerappd = docker.build("giovanacosta/app-d:$tag_version", '-f ./app-d/Dockerfile ./app-d')
                 }
             }
         }
