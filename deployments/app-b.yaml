@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-b
+  labels: 
+    app: app-b
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-b
+  template:
+    metadata:
+      labels:
+        app: app-b
+    spec:
+      containers:
+        - image: giovanacosta/app-b:latest
+          name: app-b
+          ports:
+            - containerPort: 80
+              name: app-b

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-c
+  labels: 
+    app: app-c
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-c
+  template:
+    metadata:
+      labels:
+        app: app-c
+    spec:
+      containers:
+        - image: giovanacosta/app-c:latest
+          name: app-c
+          ports:
+            - containerPort: 80
+              name: app-c
