@@ -49,7 +49,7 @@ pipeline {
             }
         }
 
-        stage('Deploying App to Kubernetes') {
+        stage('Deploy no cluster') {
             steps {
                 script {
                     sh kubectl apply -f deployments
