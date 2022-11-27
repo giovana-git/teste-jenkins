@@ -45,10 +45,10 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerappa.push('latest')
-                        dockerappb.push('latest')
-                        dockerappc.push('latest')
-                        dockerappd.push('latest')
+                        dockerappa.push('${env.BUILD_ID}')
+                        dockerappb.push('${env.BUILD_ID}')
+                        dockerappc.push('${env.BUILD_ID}')
+                        dockerappd.push('${env.BUILD_ID}')
                     }
                 }
             }
