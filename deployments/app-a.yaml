@@ -15,7 +15,7 @@ spec:
         app: app-a
     spec:
       containers:
-        - image: giovanacosta/app-a:latest
+        - image: giovanacosta/app-a:{{tag}}
           name: app-a
           ports:
             - containerPort: 80

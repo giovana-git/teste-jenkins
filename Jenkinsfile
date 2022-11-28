@@ -17,16 +17,12 @@ pipeline {
 
         stage('Build das imagens Docker') {
 
-            environment {
-                tag_version = "${env.BUILD_ID}"
-            }
-
             steps {
                 script {
-                    dockerappa = docker.build("giovanacosta/app-a:$tag_version", '-f ./app-a/Dockerfile ./app-a')
-                    dockerappb = docker.build("giovanacosta/app-b:$tag_version", '-f ./app-b/Dockerfile ./app-b')
-                    dockerappc = docker.build("giovanacosta/app-c:$tag_version", '-f ./app-c/Dockerfile ./app-c')
-                    dockerappd = docker.build("giovanacosta/app-d:$tag_version", '-f ./app-d/Dockerfile ./app-d')
+                    dockerappa = docker.build("giovanacosta/app-a:${env.BUILD_ID}", '-f ./app-a/Dockerfile ./app-a')
+                    dockerappb = docker.build("giovanacosta/app-b:${env.BUILD_ID}", '-f ./app-b/Dockerfile ./app-b')
+                    dockerappc = docker.build("giovanacosta/app-c:${env.BUILD_ID}", '-f ./app-c/Dockerfile ./app-c')
+                    dockerappd = docker.build("giovanacosta/app-d:${env.BUILD_ID}", '-f ./app-d/Dockerfile ./app-d')
                 }
             }
         }
@@ -40,19 +36,24 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerappa.push('${env.BUILD_ID}')
-                        dockerappb.push('${env.BUILD_ID}')
-                        dockerappc.push('${env.BUILD_ID}')
-                        dockerappd.push('${env.BUILD_ID}')
+                        dockerappa.push("${env.BUILD_ID}")
+                        dockerappb.push("${env.BUILD_ID}")
+                        dockerappc.push("${env.BUILD_ID}")
+                        dockerappd.push("${env.BUILD_ID}")
                     }
                 }
             }
         }
 
         stage('Deploy no cluster') {
+
+            environment {
+                tag_version = "${env.BUILD_ID}"
+            }
+                        
             steps {
                 script {
-                    sh kubectl apply -f deployments                 
+                    sh 'sed -i "s/{{tag}}/$tag_version/g" ./deployments/app-a.yaml'                
                 }
             }
         }
