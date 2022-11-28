@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     sh 'sed -i "s/{{tag}}/$tag_version/g" ./deployments/app-a.yaml'
-                    sh 'kubectl apply -f deployments'               
+                    sh 'kubectl apply -f deployments/'               
                 }
             }
         }
